@@ -54,6 +54,7 @@ The Contributors of this Specification would like to acknowledge the following:
 - Steven Bellock (NVIDIA)
 - Jeff Andersen (Google)
 - Brett Henning (Broadcom)
+- Xiaoyu Ruan (Intel)
 
 <!---
 Please describe how this Specification complies with the OCP tenets.
@@ -175,7 +176,15 @@ The following items are out of scope:
 
 ## Discovering device identity keypairs {#sec:discovering-device-keypairs}
 
-TODO: fill in
+The device's identity keypairs can be acquired by issuing the GET_CERTIFICATE command of SPDM 1.3 [@{spdm-1.3}]. The vendor's certificate chain is provisioned at slot 0. In order to support device identity provisioning, the device should use the "alias certificate model" defined in SPDM. Here are some ways to identify different layers of a device's DICE certificate chain.
+
+- For Caliptra, when parsing the chain of certificates of slot 0 from the root (which appears first in the certificate chain in the CERTIFICATE response) down, the first certificate that contains a TCB_INFO extension is the Runtime Alias certificate. Its issuer is the FMC Alias certificate; the issuer of the FMC Alias certificate is the LDevID certificate; the issuer of the LDevID certificate is the IDevID certificate.
+
+- SPDM defines two OIDs to facilitate identification of device ID certificate and firmware certificate. The certificate that includes an id-DMTF-hardware-identity OID is the IDevID certificate. The first certificate of the chain that includes an id-DMTF-mutable-certificate OID is the FMC Alias certificate.
+
+- The "subject name" field of a certificate may often specify the nature of the certificate. For example, Caliptra's IDevID certificate has ASCII "IDevID" in its "common name" sub-field of the "subject name" field.
+
+TODO: fill in more
 
 ## Establishing trust in a selected identity keypair {#sec:establishing-trust-in-identity}
 
