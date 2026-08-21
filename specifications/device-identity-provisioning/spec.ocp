@@ -344,7 +344,7 @@ The AttestedCSRdata shall adhere to the following requirements:
 
 To summarize, the Requester should execute the following sequence for issuing and provisioning an identity certificate chain to the Responder device.
 
-1. Acquire all keypair IDs and their associated OIDs for derivation attributes from the Responder device by issuing `GET_ATTESTED_CSR` request with `KeyPairID` = 0.
+1. Issue `GET_ATTESTED_CSR` request with `KeyPairID` = 0 to acquire all keypair IDs and their associated OID and bitfields for derivation attributes from the Responder device.
 2. Examine the derivation attributes of the candidate keypair IDs and choose one that matches the Requester's use case.
 3. Issue `GET_ATTESTED_CSR` request with the chosen `KeyPairID`. Check the received CSR for validity, including verifying the self-signature if attestation was requested.
 4. Construct and sign an identity leaf certificate for the Responder based off the CSR. The leaf certificate is rooted to the Requester's trust anchor.
